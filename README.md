@@ -3,7 +3,7 @@
 
 ---
 
-hi, i'm **Mari** ♡ a software engineer who writes C# and AWS backends by day and builds cozy Roblox worlds by night with **Starcove Studios**.
+hi, i'm **Mari** ♡ a software engineer who writes C# and AWS backends by day and builds cozy Roblox worlds by night.
 
 this repo is where i think out loud about the technical side of my projects: the setups, the tradeoffs, and the bugs that taught me something. (˶ᵔ ᵕ ᵔ˶)
 

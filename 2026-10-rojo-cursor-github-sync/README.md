@@ -12,13 +12,13 @@
 
 ## 🍓 the problem (╥﹏╥)
 
-I'm building **StarCove**, a cozy Roblox life-sim with farming, fashion contests, dream rooms, fishing, and a little in-game phone called StarLink.
+I was building **StarCove**, a cozy Roblox life-sim with farming, fashion contests, dream rooms, fishing, and a little in-game phone called StarLink.
 
-But Roblox Studio has one big catch for anyone used to normal software dev:
+But Roblox Studio had one big catch for anyone used to normal software dev:
 
-> everything lives inside **one binary place file** (`.rbxl`).
+> everything lived inside **one binary place file** (`.rbxl`).
 
-That means:
+That meant:
 
 - 🚫 no readable diffs
 - 🚫 no real branches or pull requests
@@ -31,14 +31,14 @@ I write C# and AWS backends at my day job. I wanted that same workflow for my ga
 
 ## 🧁 what i built
 
-Three tools, each with one job:
+Four tools, each with one job:
 
 | tool | its job | vibe |
 |------|---------|------|
-| 💜 **Cursor** | where I write code, with an AI pair programmer | the brain |
+| 💜 **Cursor** | where I wrote code, with an AI pair programmer | the brain |
 | 🐙 **GitHub** | source of truth: branches, PRs, history | the diary |
-| 🌉 **Rojo** | live-syncs files from disk into Studio | the bridge |
-| 🎮 **Roblox Studio** | playtesting only, code doesn't live here anymore | the stage |
+| 🌉 **Rojo** | live-synced files from disk into Studio | the bridge |
+| 🎮 **Roblox Studio** | playtesting only, code didn't live there anymore | the stage |
 
 ```mermaid
 flowchart LR
@@ -56,11 +56,11 @@ flowchart LR
     style F fill:#dcfce7,stroke:#86efac,color:#14532d
 ```
 
-The big mindset shift: **Studio stops being the place where code lives.** It becomes the place where code *runs*. ♡
+The big mindset shift: **Studio stopped being the place where code lived.** It became the place where code *ran*. ♡
 
 ---
 
-## 🎀 how it works
+## 🎀 how it worked
 
 ### the map: `default.project.json`
 
@@ -81,7 +81,7 @@ Rojo reads one file that says "this folder on disk becomes this service in Roblo
 }
 ```
 
-So `ServerScriptService/Services/QuestService.lua` on my laptop shows up in Studio as a ModuleScript in exactly the right spot. ✿
+So `ServerScriptService/Services/QuestService.lua` on my laptop showed up in Studio as a ModuleScript in exactly the right spot. ✿
 
 ### the file naming rules
 
@@ -103,7 +103,7 @@ Rojo figures out *what kind* of thing to make from the file name:
 .DS_Store
 ```
 
-The binary place file never touches git. Only readable source does. ദ്ദി(˵ •̀ ᴗ - ˵ ) ✧
+The binary place file never touched git. Only readable source did. ദ്ദി(˵ •̀ ᴗ - ˵ ) ✧
 
 ---
 
@@ -111,7 +111,7 @@ The binary place file never touches git. Only readable source does. ദ്ദി
 
 Here's a real tradeoff I had to think through.
 
-Code is easy to keep in files. But **maps** are not. I place props, lamps, benches, and planters by hand in Studio, because dragging things around visually is the whole point.
+Code was easy to keep in files. But **maps** were not. I placed props, lamps, benches, and planters by hand in Studio, because dragging things around visually was the whole point.
 
 My first setup told Rojo to own *all* of Workspace:
 
@@ -121,7 +121,7 @@ My first setup told Rojo to own *all* of Workspace:
 
 And Rojo did exactly what I asked. On sync, it looked at Workspace, saw a bunch of things that weren't in my files, and **deleted them**. My hand-built map, gone. (｡•́︿•̀｡)
 
-The fix was to let Rojo manage *only* the pieces that are code-driven, and politely ignore everything else:
+The fix was to let Rojo manage *only* the pieces that were code-driven, and politely ignore everything else:
 
 ```json
 "Workspace": {
@@ -140,10 +140,10 @@ The fix was to let Rojo manage *only* the pieces that are code-driven, and polit
 
 `$ignoreUnknownInstances: true` basically means *"if you don't recognize it, leave it alone."* 🫶
 
-Now I get both worlds:
+After that, I got both worlds:
 
-- 🧸 **Studio owns** the hand-built map
-- 📁 **git owns** the systems that need versioning (FarmPlot, FashionContest, GeekOutDemo)
+- 🧸 **Studio owned** the hand-built map
+- 📁 **git owned** the systems that needed versioning (FarmPlot, FashionContest, GeekOutDemo)
 
 I think this is the most important idea in the whole setup: **decide on purpose which tool owns which part of the world.**
 
@@ -163,7 +163,7 @@ All three of these happened on the same day. Classic. ٩(×̯×)۶
 
 - **symptom:** shop and housing code errored because RemoteEvents like `PlaceFurniture` and `VisitRoom` were missing in Studio
 - **cause:** I'd made them as `.meta.json` files. A meta file only *adds properties* to something that already exists. It doesn't create anything on its own.
-- **fix:** rename them to `.model.json`, which actually defines a new instance
+- **fix:** renamed them to `.model.json`, which actually defines a new instance
 
 ```
 Remotes/PlaceFurniture.meta.json   ❌
@@ -174,7 +174,7 @@ Remotes/PlaceFurniture.model.json  ✅
 
 - **symptom:** corners, padding, and layout were off across the Fashion, Housing, and StarLink panels
 - **cause:** I wrote `UDim` values as plain arrays, so Rojo couldn't tell what type they were
-- **fix:** use Rojo's explicit typed format
+- **fix:** switched to Rojo's explicit typed format
 
 ```diff
 - "CornerRadius": [[0, 8]]
@@ -193,15 +193,15 @@ That fix touched about 30 files, so I wrote a small shell script (`scripts/fix_m
 
 ## 🤖 working with an AI pair programmer
 
-Cursor isn't just my editor, it's a collaborator. AI-assisted commits carry a trailer so authorship stays honest:
+Cursor wasn't just my editor, it was a collaborator. AI-assisted commits carried a trailer so authorship stayed honest:
 
 ```
 Co-authored-by: Cursor <cursoragent@cursor.com>
 ```
 
-Because my code now lives in normal files, the AI can actually *read the whole project*. That unlocked things that would have been impossible inside Studio:
+Because my code lived in normal files, the AI could actually *read the whole project*. That unlocked things that would have been impossible inside Studio:
 
-- 🧪 a **94-test automated suite** for my inventory, economy, currency, needs, and persistence systems, including 15 integration tests, all runnable from Studio with:
+- 🧪 a **94-test automated suite** for the inventory, economy, currency, needs, and persistence systems, including 15 integration tests, all runnable from Studio with:
 
   ```lua
   require(game.ServerScriptService.Tests.TestRunner).RunAll()
@@ -211,9 +211,9 @@ Because my code now lives in normal files, the AI can actually *read the whole p
 
 But the AI didn't replace my judgment. I still:
 
-- 🎮 playtest everything in Studio and watch the Output window
-- 👀 review every PR
-- 🧭 decide what gets merged and when
+- 🎮 playtested everything in Studio and watched the Output window
+- 👀 reviewed every PR
+- 🧭 decided what got merged and when
 
 ---
 
@@ -221,16 +221,16 @@ But the AI didn't replace my judgment. I still:
 
 Being honest here, because musings should be ♡
 
-- **the place file still isn't in git.** Anyone joining the project needs it sent separately. I'd like to move more of the map into Rojo-managed models over time.
+- **the place file never made it into git.** Anyone joining the project needed it sent separately. Next time I'd move more of the map into Rojo-managed models.
 - **branches drifted.** It got *so easy* to spin up new work that I ended up with five diverged branches. AI speeds you up, and it also makes it easy to create more work than you've merged. Merge early, merge often!
-- **manual test checklists matter too.** 94 automated tests is great, but some things (does the GUI *look* right?) still need human eyes.
+- **manual test checklists matter too.** 94 automated tests was great, but some things (does the GUI *look* right?) still needed human eyes.
 
 ---
 
 ## 🌟 takeaways
 
 1. 🎮 **Studio is the stage, not the source.** Keep code in real files.
-2. 🌉 **decide who owns what.** Rojo owns systems, Studio owns the hand-built world.
+2. 🌉 **decide who owns what.** Let Rojo own systems and Studio own the hand-built world.
 3. 🤖 **real files unlock real AI help.** Tests, prototypes, and PRs all became possible once my code was readable.
 
 Thanks for reading! If you're a Roblox dev who wants git, real PRs, and an AI pair programmer, I hope this saves you a few disappearing maps. (っ˘ω˘ς ) ✨
